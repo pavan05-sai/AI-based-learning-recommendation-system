@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Recommendations - LearningAI{% endblock %}
+{% block content %}
+<div class="recommendations">
+    <h2>Your Personalized Recommendations</h2>
+    {% if recommendations %}
+    {% for subject, data in recommendations.items() %}
+    <div
+        class="recommendation-card {% if data.level == 'weak' %}weak{% elif data.level == 'intermediate' %}intermediate{% else %}strong{% endif %}">
+        <h3>{{ subject }} ({{ data.level|capitalize }})</h3>
+        {% if data.level == 'weak' %}
+        <p><strong>Score:</strong> {{ data.score }} / 100</p>
+        <div class="resources">
+            <h4>Notes</h4>
+            <ul>
+                <li><a href="{{ url_for('view_resource', type='notes', subject=subject) }}">📄 View Notes</a></li>
+            </ul>
+            <h4>Videos</h4>
+            <ul>
+                <li><a href="{{ url_for('view_resource', type='video', subject=subject) }}">📺 Watch Videos</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <p>You are doing well in this subject.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No recommendations available yet. Complete some quizzes first.</p>
+    {% endif %}
+</div>
+{% endblock %}

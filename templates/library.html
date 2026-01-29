@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Resource Library - LearningAI{% endblock %}
+{% block content %}
+<div class="library-container">
+    <h2>📚 Global Resources Library</h2>
+    <p>Browse notes and videos for any branch and semester.</p>
+
+    <!-- Filter Form -->
+    <div class="card filter-card">
+        <form action="{{ url_for('library') }}" method="POST" class="filter-form">
+            <div class="form-group">
+                <label>Branch</label>
+                <select name="branch" onchange="this.form.submit()">
+                    {% for b in branches %}
+                    <option value="{{ b }}" {% if b==current_branch %}selected{% endif %}>{{ b }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Semester</label>
+                <select name="semester" onchange="this.form.submit()">
+                    {% for i in range(1, 9) %}
+                    <option value="{{ i }}" {% if i==current_sem %}selected{% endif %}>Semester {{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn-primary">Search</button>
+        </form>
+    </div>
+
+    <!-- Results -->
+    <div class="results-grid">
+        {% if library_data %}
+        {% for item in library_data %}
+        <div class="resource-card">
+            <h3>{{ item.name }}</h3>
+            <div class="links">
+                <div class="link-group">
+                    <span>📝 Notes:</span>
+                    <a href="{{ url_for('view_resource', type='notes', subject=item.name, branch=current_branch, semester=current_sem) }}"
+                        class="resource-link google">📄 View Notes</a>
+                </div>
+                <div class="link-group">
+                    <span>🎥 Videos:</span>
+                    <a href="{{ url_for('view_resource', type='video', subject=item.name, branch=current_branch, semester=current_sem) }}"
+                        class="resource-link youtube">📺 Watch Videos</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="no-results">No resources found for the selected branch/semester.</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('dashboard') }}" class="btn-secondary" style="margin-top: 2rem; display: inline-block;">Back to
+        Dashboard</a>
+</div>
+
+<style>
+    .filter-card {
+        margin-bottom: 2rem;
+    }
+
+    .filter-form {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+
+    .form-group {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .resource-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .resource-card h3 {
+        margin-bottom: 0.5rem;
+        color: var(--color-primary);
+    }
+
+    .links {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+
+    .link-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .muted {
+        color: #888;
+        font-style: italic;
+    }
+
+    .no-results {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #aaa;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}

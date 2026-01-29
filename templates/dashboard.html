@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - LearningAI{% endblock %}
+{% block content %}
+<div class="dashboard">
+    <h2>Welcome, {{ name }}!</h2>
+    <section class="profile-info">
+        <div class="info-header">
+            <div>
+                <p><strong>Branch:</strong> {{ branch }}</p>
+                <p><strong>Semester:</strong> {{ semester }}</p>
+            </div>
+            <button class="btn-secondary"
+                onclick="document.getElementById('edit-profile').classList.toggle('hidden')">Edit Profile</button>
+        </div>
+
+        <!-- Toggleable Edit Form -->
+        <div id="edit-profile" class="hidden edit-box">
+            <form action="{{ url_for('update_profile') }}" method="POST">
+                <label>Change Branch:</label>
+                <select name="branch" required>
+                    <option value="{{ branch }}" selected>{{ branch }} (Current)</option>
+                    <option value="Computer Science Engineering">Computer Science Engineering</option>
+                    <option value="Information Technology">Information Technology</option>
+                    <option value="Artificial Intelligence & Machine Learning">AI & ML</option>
+                    <option value="Data Science">Data Science</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                    <option value="Cloud & DevOps">Cloud & DevOps</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Electronics & Communication Engineering">ECE</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Chemical Engineering">Chemical Engineering</option>
+                    <option value="Biotechnology">Biotechnology</option>
+                    <option value="Automobile Engineering">Automobile</option>
+                    <option value="Aerospace Engineering">Aerospace</option>
+                    <option value="Instrumentation Engineering">Instrumentation</option>
+                </select>
+                <label>Change Semester:</label>
+                <input type="number" name="semester" min="1" max="8" value="{{ semester }}" required
+                    style="width: 60px;">
+                <button type="submit" class="btn-primary" style="padding: 0.4rem 0.8rem;">Update</button>
+            </form>
+        </div>
+
+        <div class="actions">
+            <a href="{{ url_for('semester_view', sem=semester) }}" class="btn-secondary">View Semester Subjects</a>
+            <a href="{{ url_for('library') }}" class="btn-primary" style="margin-left: 1rem;">📚 Global Resource
+                Library</a>
+        </div>
+    </section>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .edit-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        .info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .actions {
+            margin-top: 1.5rem;
+        }
+
+        /* Roadmap Styles */
+        .roadmap-container {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .roadmap-title {
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .timeline {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .timeline-step {
+            position: relative;
+            padding: 0.8rem 1.2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .timeline-step.completed {
+            background: var(--color-success);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .timeline-step.current {
+            background: var(--color-warning);
+            color: #000;
+            font-weight: 700;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .timeline-arrow {
+            font-size: 1.2rem;
+            color: #555;
+        }
+    </style>
+
+    {% if domain_roadmap %}
+    <section class="roadmap-container">
+        <h3 class="roadmap-title">🚀 {{ branch }} Career Roadmap</h3>
+        <div class="timeline">
+            {% for step in domain_roadmap %}
+            {% set step_idx = loop.index %}
+            <!-- Logic: Mark previous sems specific skills as done, current sem as current -->
+            <div
+                class="timeline-step {% if step_idx < semester %}completed{% elif step_idx == semester %}current{% endif %}">
+                {{ step }}
+            </div>
+            {% if not loop.last %}
+            <div class="timeline-arrow">➜</div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <section class="subjects-grid">
+        <h3>Subjects & Scores</h3>
+        <div class="grid">
+            {% for subj in subjects %}
+            {% set score = scores.get(subj.name) %}
+            <div
+                class="subject-card {% if score is not none %}{% if score < 40 %}weak{% elif score <= 70 %}intermediate{% else %}strong{% endif %}{% else %}no-score{% endif %}">
+                <h4>{{ subj.name }}</h4>
+                {% if score is not none %}
+                <p>Score: {{ score }} / 100</p>
+                {% else %}
+                <p><em>Not attempted</em></p>
+                {% endif %}
+                <a href="{{ url_for('quiz', subject_id=subj.id) }}" class="btn-primary">Take Quiz</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="recommendations-link">
+        <a href="{{ url_for('recommendations') }}" class="btn-primary">View Recommendations</a>
+    </section>
+</div>
+{% endblock %}

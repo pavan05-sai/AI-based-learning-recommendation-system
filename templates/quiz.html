@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Quiz - {{ subject.name }} - LearningAI{% endblock %}
+{% block content %}
+<div class="quiz-page">
+    <h2>Quiz: {{ subject.name }}</h2>
+    <p class="quiz-instruction">Select the correct answer for each question. Your answers will be evaluated securely by
+        our AI.</p>
+
+    <form id="quiz-form" method="POST" action="{{ url_for('quiz', subject_id=subject.id) }}">
+        <div class="question-block">
+            <p><strong>Q1. What is the fundamental concept of {{ subject.name }}?</strong></p>
+            <label><input type="radio" name="q1" value="wrong" required> Random Theory</label><br>
+            <label><input type="radio" name="q1" value="correct"> Core Principle of {{ subject.name }}</label><br>
+            <label><input type="radio" name="q1" value="wrong"> Outdated Idea</label><br>
+        </div>
+
+        <div class="question-block">
+            <p><strong>Q2. Which of the following is a key application?</strong></p>
+            <label><input type="radio" name="q2" value="correct"> Real-world problem solving</label><br>
+            <label><input type="radio" name="q2" value="wrong"> Abstract confusion</label><br>
+            <label><input type="radio" name="q2" value="wrong"> None of the above</label><br>
+        </div>
+
+        <div class="question-block">
+            <p><strong>Q3. True or False: {{ subject.name }} is essential for engineering?</strong></p>
+            <label><input type="radio" name="q3" value="correct"> True</label><br>
+            <label><input type="radio" name="q3" value="wrong"> False</label><br>
+        </div>
+
+        <div class="question-block">
+            <p><strong>Q4. Advanced topic related to this subject:</strong></p>
+            <label><input type="radio" name="q4" value="wrong"> Basic Addition</label><br>
+            <label><input type="radio" name="q4" value="correct"> Complex Systems Analysis</label><br>
+            <label><input type="radio" name="q4" value="wrong"> Alphabet learning</label><br>
+        </div>
+
+        <div class="question-block">
+            <p><strong>Q5. Best resource for learning?</strong></p>
+            <label><input type="radio" name="q5" value="correct"> Textbooks & Practical Labs</label><br>
+            <label><input type="radio" name="q5" value="wrong"> Social Media</label><br>
+            <label><input type="radio" name="q5" value="wrong"> Guesswork</label><br>
+        </div>
+
+        <button type="submit" class="btn-primary">Submit Answers</button>
+    </form>
+</div>
+
+<style>
+    .quiz-page {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .question-block {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+    .question-block p {
+        margin-bottom: 0.5rem;
+        color: #fff;
+    }
+
+    .question-block label {
+        color: #ccc;
+        cursor: pointer;
+        display: inline-block;
+        padding: 0.2rem 0;
+    }
+
+    .quiz-instruction {
+        margin-bottom: 1.5rem;
+        color: #aaa;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Viewing {{ subject }} - LearningAI{% endblock %}
+{% block content %}
+<div class="viewer-container">
+    <div class="viewer-header">
+        <div class="subject-title">
+            <h2>{{ "📺" if res_type == 'video' else "📝" }} {{ subject }}</h2>
+            <p class="viewer-hint">Viewing direct resource for your domain</p>
+        </div>
+        <div class="viewer-actions">
+            <a href="{{ embed_url }}" target="_blank" class="btn-primary" style="margin-right: 0.5rem;">↗️ Open in New
+                Tab</a>
+            <a href="{{ url_for('dashboard') }}" class="btn-secondary">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <div class="iframe-wrapper">
+        <iframe src="{{ embed_url }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="viewer-footer">
+        <p>If the content is blocked or not loading, click "Open in New Tab" above for full access.</p>
+    </div>
+</div>
+
+<style>
+    .viewer-container {
+        height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .viewer-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    .subject-title h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .viewer-hint {
+        font-size: 0.8rem;
+        color: #888;
+        margin: 2px 0 0 0;
+    }
+
+    .viewer-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .iframe-wrapper {
+        flex: 1;
+        background: #000;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .viewer-footer {
+        text-align: center;
+        margin-top: 10px;
+        color: #666;
+        font-size: 0.85rem;
+    }
+</style>
+{% endblock %}

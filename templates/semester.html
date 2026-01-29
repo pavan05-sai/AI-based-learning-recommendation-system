@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Semester {{ semester }} - LearningAI{% endblock %}
+{% block content %}
+<div class="semester-view">
+    <h2>Semester {{ semester }} Subjects</h2>
+    <div class="subjects-list">
+        {% for subj in subjects %}
+        <div class="subject-item">
+            <h3>{{ subj.name }}</h3>
+            <p><strong>Roadmap:</strong></p>
+            <ol class="roadmap-list">
+                {% for step in subj.roadmap %}
+                <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+            <a href="{{ url_for('quiz', subject_id=subj.id) }}" class="btn-primary">Take Quiz</a>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('dashboard') }}" class="btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}
