@@ -1,0 +1,593 @@
+/* style.css - Premium dark theme with glassmorphism and micro‑animations */
+
+/* Root variables for easy theming */
+:root {
+    --font-primary: 'Inter', sans-serif;
+    --color-bg: #0f172a;
+    /* dark navy */
+    --color-surface: rgba(255, 255, 255, 0.05);
+    --color-primary: #0ea5e9;
+    /* teal */
+    --color-primary-dark: #0284c7;
+    --color-success: #10b981;
+    /* green */
+    --color-warning: #f59e0b;
+    /* amber */
+    --color-danger: #ef4444;
+    /* red */
+    --radius: 0.75rem;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --transition: 0.3s ease;
+}
+
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--color-bg);
+    color: #e2e8f0;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header.site-header {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow);
+}
+
+header .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+header nav a {
+    margin-left: 1.5rem;
+    color: #fff;
+    font-weight: 500;
+}
+
+header nav a:hover {
+    opacity: 0.85;
+}
+
+main.content {
+    flex: 1;
+    padding: 2rem;
+}
+
+footer.site-footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+/* Card component */
+.card,
+.subject-card,
+.recommendation-card {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(8px);
+    transition: var(--transition);
+}
+
+.card:hover,
+.subject-card:hover,
+.recommendation-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-dark);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* Subject grid */
+.subjects-grid .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.subject-card.weak {
+    border-left: 4px solid var(--color-danger);
+}
+
+.subject-card.intermediate {
+    border-left: 4px solid var(--color-warning);
+}
+
+.subject-card.strong {
+    border-left: 4px solid var(--color-success);
+}
+
+.subject-card.no-score {
+    opacity: 0.6;
+}
+
+/* Semester view */
+.semester-view .subjects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.subject-item {
+    background: var(--color-surface);
+    padding: 1rem;
+    border-radius: var(--radius);
+}
+
+.roadmap-list {
+    margin-left: 1.2rem;
+}
+
+/* Recommendations */
+.recommendations .recommendation-card {
+    border-left: 4px solid var(--color-primary);
+}
+
+.recommendations .recommendation-card.weak {
+    border-left-color: var(--color-danger);
+}
+
+.recommendations .recommendation-card.intermediate {
+    border-left-color: var(--color-warning);
+}
+
+.recommendations .recommendation-card.strong {
+    border-left-color: var(--color-success);
+}
+
+.resources ul {
+    list-style: disc inside;
+    margin-top: 0.5rem;
+}
+
+/* Forms */
+form label {
+    display: block;
+    margin-top: 0.8rem;
+    font-weight: 500;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #475569;
+    border-radius: var(--radius);
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.error-message {
+    color: var(--color-danger);
+    margin-bottom: 0.5rem;
+}
+
+/* ===== AUTHENTICATION PAGES STYLING ===== */
+
+/* Auth page wrapper - centers the card */
+.login-card,
+.signup-card {
+    max-width: 440px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    position: relative;
+    background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 1.25rem;
+    box-shadow:
+        0 25px 50px -12px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(14, 165, 233, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    animation: cardSlideIn 0.6s ease-out;
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Gradient border effect */
+.login-card::before,
+.signup-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, var(--color-primary), #6366f1, var(--color-primary-dark), #8b5cf6);
+    border-radius: 1.35rem;
+    z-index: -1;
+    opacity: 0.6;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+    0% {
+        opacity: 0.4;
+        filter: blur(4px);
+    }
+
+    100% {
+        opacity: 0.7;
+        filter: blur(8px);
+    }
+}
+
+/* Auth card titles */
+.login-card h2,
+.signup-card h2 {
+    font-size: 1.85rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.75rem;
+    background: linear-gradient(135deg, #fff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+/* Auth card titles icon */
+.login-card h2::before,
+.signup-card h2::before {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--color-primary), #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.login-card h2::before {
+    content: '🔐';
+}
+
+.signup-card h2::before {
+    content: '🚀';
+}
+
+/* Form styling inside auth cards */
+.login-card form,
+.signup-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* Enhanced labels */
+.login-card form label,
+.signup-card form label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Enhanced inputs */
+.login-card form input,
+.login-card form select,
+.signup-card form input,
+.signup-card form select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    border: 2px solid rgba(71, 85, 105, 0.5);
+    border-radius: 0.75rem;
+    background: rgba(15, 23, 42, 0.8);
+    color: #f1f5f9;
+    transition: all 0.3s ease;
+    margin-top: 0;
+}
+
+.login-card form input::placeholder,
+.signup-card form input::placeholder {
+    color: #64748b;
+}
+
+.login-card form input:hover,
+.login-card form select:hover,
+.signup-card form input:hover,
+.signup-card form select:hover {
+    border-color: rgba(14, 165, 233, 0.5);
+    background: rgba(30, 41, 59, 0.9);
+}
+
+.login-card form input:focus,
+.login-card form select:focus,
+.signup-card form input:focus,
+.signup-card form select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow:
+        0 0 0 4px rgba(14, 165, 233, 0.15),
+        0 4px 12px rgba(14, 165, 233, 0.2);
+    background: rgba(30, 41, 59, 1);
+}
+
+/* Select dropdown styling */
+.login-card form select,
+.signup-card form select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Enhanced submit button */
+.login-card form button.btn-primary,
+.signup-card form button.btn-primary {
+    margin-top: 2rem;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border: none;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, var(--color-primary), #6366f1);
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+}
+
+.login-card form button.btn-primary::before,
+.signup-card form button.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.login-card form button.btn-primary:hover,
+.signup-card form button.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+    background: linear-gradient(135deg, #0ea5e9, #818cf8);
+}
+
+.login-card form button.btn-primary:hover::before,
+.signup-card form button.btn-primary:hover::before {
+    left: 100%;
+}
+
+.login-card form button.btn-primary:active,
+.signup-card form button.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+}
+
+/* Link styling at bottom of auth cards */
+.login-card>p,
+.signup-card>p {
+    text-align: center;
+    margin-top: 1.75rem;
+    color: #94a3b8;
+    font-size: 0.925rem;
+}
+
+.login-card>p a,
+.signup-card>p a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.login-card>p a::after,
+.signup-card>p a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), #6366f1);
+    transition: width 0.3s ease;
+}
+
+.login-card>p a:hover,
+.signup-card>p a:hover {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.login-card>p a:hover::after,
+.signup-card>p a:hover::after {
+    width: 100%;
+}
+
+/* Error message styling for auth cards */
+.login-card .error-message,
+.signup-card .error-message {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    color: #fca5a5;
+    font-size: 0.9rem;
+    text-align: center;
+    animation: shakeError 0.5s ease-out;
+}
+
+@keyframes shakeError {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-5px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Animated background orbs for auth pages */
+body:has(.login-card),
+body:has(.signup-card) {
+    position: relative;
+    overflow-x: hidden;
+}
+
+body:has(.login-card)::before,
+body:has(.signup-card)::before,
+body:has(.login-card)::after,
+body:has(.signup-card)::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: -1;
+    animation: floatOrb 8s ease-in-out infinite;
+}
+
+body:has(.login-card)::before,
+body:has(.signup-card)::before {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, var(--color-primary), transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+body:has(.login-card)::after,
+body:has(.signup-card)::after {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #6366f1, transparent 70%);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -4s;
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+
+    .login-card,
+    .signup-card {
+        margin: 1.5rem 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .login-card h2,
+    .signup-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .login-card form input,
+    .login-card form select,
+    .signup-card form input,
+    .signup-card form select {
+        padding: 0.75rem;
+    }
+}
