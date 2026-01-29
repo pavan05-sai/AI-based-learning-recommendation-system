@@ -15,7 +15,8 @@ app = Flask(__name__)
 init_db()
 app.secret_key = os.urandom(24)
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "learning_ai.db")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "learning_ai.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
@@ -295,5 +296,6 @@ if __name__ == '__main__':
         from db_init import init_db
         init_db()
     app.run(host="0.0.0.0", port=5000)
+
 
 
