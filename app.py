@@ -5,7 +5,7 @@ Provides routes for signup, login, dashboard, semester view, quiz handling, and 
 """
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-from db_init import int_db
+from db_init import init_db
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import os
@@ -295,4 +295,5 @@ if __name__ == '__main__':
         from db_init import init_db
         init_db()
     app.run(host="0.0.0.0", port=5000)
+
 
