@@ -26,7 +26,7 @@
    ```bash
    python app.py
    ```
-   Access the app at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
+   Access the app at: https://ai-based-learning-recommendation-system.onrender.com
 
 ## Tech Stack
 - **Backend**: Python (Flask)
@@ -41,3 +41,4 @@
 - `generate_data.py`: Utility to generate comprehensive JSON seed data.
 - `templates/`: HTML pages (Dashboard, Quiz, Semester, etc.).
 - `static/`: CSS and JS assets.
+
